@@ -151,3 +151,36 @@ function showStatus(msg, type) {
         formStatus.className = 'form-status';
     }, 5000);
 }
+
+// ─── Image Lightbox (Zoom) ───
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+document.querySelectorAll('.img-frame img, .team-img-wrap img, .pic-card img').forEach(img => {
+    img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scroll
+    });
+});
+
+lightbox.addEventListener('click', (e) => {
+    if (e.target !== lightboxImg) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scroll
+    }
+});
+
+lightboxClose.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+// ─── Image Protection (Prevent Right-click & Drag) ───
+document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('contextmenu', e => e.preventDefault());
+    img.addEventListener('dragstart', e => e.preventDefault());
+});
+
+
